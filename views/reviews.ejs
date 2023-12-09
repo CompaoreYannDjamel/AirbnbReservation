@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Commentaires</title>
+  <style>
+     body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+      background-color: #f4f4f4;
+    }
+
+    h2 {
+      color: #333;
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    li {
+      border: 1px solid #ddd;
+      margin-bottom: 10px;
+      padding: 10px;
+      background-color: #fff;
+    }
+
+    a {
+      display: inline-block;
+      margin-top: 10px;
+      padding: 10px;
+      text-decoration: none;
+      background-color: #007BFF;
+      color: #fff;
+      border-radius: 5px;
+    }
+
+    a:hover {
+      background-color: #0056b3;
+    }
+  </style>
+  </style>
+</head>
+<body>
+  <h2>Critiques pour <%= accommodation.name %></h2>
+  <% if (accommodation.reviews.length > 0) { %>
+    <ul>
+      <% accommodation.reviews.forEach(review => { %>
+        <li>
+          <strong>Critique:</strong> <%= review.reviewer_name %><br>
+          <strong>Date:</strong> <%= review.date %><br>
+          <strong>Commentaires:</strong> <%= review.comments %>
+        </li>
+      <% }); %>
+    </ul>
+  <% } else { %>
+    <p>Aucun avis pour l'instant.</p>
+  <% } %>
+  <a href="/add-review/<%= accommodation._id %>">Ajouter un commentaire</a>
+</body>
+</html>

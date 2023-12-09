@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Résultats de recherche</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+      background-color: #f4f4f4;
+    }
+
+    h2 {
+      color: #333;
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    li {
+      background-color: #fff;
+      padding: 15px;
+      margin-bottom: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    strong {
+      font-weight: bold;
+      color: #333;
+    }
+
+    p {
+      color: #333;
+    }
+
+    button {
+      background-color: #007BFF;
+      color: #fff;
+      padding: 10px;
+      border: none;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+  </style>
+</head>
+<body>
+  <h2>Résultats de recherche</h2>
+  <% if (accommodations.length > 0) { %>
+    <ul>
+      <% accommodations.forEach(accommodation => { %>
+        <li>
+          <strong>Nom:</strong> <%= accommodation.name %><br>
+          <strong>Addresse:</strong> <%= accommodation.address.street %>, <%= accommodation.address.market %>, <%= accommodation.address.country %><br>
+          <strong>Chambres à coucher:</strong> <%= accommodation.bedrooms %><br>
+          <strong>Nuitées minimum :</strong> <%= accommodation.minimum_nights %><br>
+          <strong>Nuitées maximales :</strong> <%= accommodation.maximum_nights %><br>
+          <strong>Prix:</strong> <%= accommodation.price %><br>
+         
+          <form action="/book" method="post">
+            <input type="text" id="airbnbId" name="airbnbId" value="<%= accommodation._id %>" required hidden>
+            <button type="submit">Reservez maintenant</button>
+          </form>
+          <button onclick="showReviews('<%= accommodation._id %>')">Afficher les avis</button>
+        </li>
+      <% }); %>
+    </ul>
+  <% } else { %>
+    <p>Aucun hébergement trouvé correspondant aux critères.</p>
+  <% } %>
+
+
+  <script>
+    function showReviews(airbnbId) {
+      window.location.href = `/reviews/${airbnbId}`;
+    }
+  </script>
+</body>
+</html>
